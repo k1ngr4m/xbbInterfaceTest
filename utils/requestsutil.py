@@ -20,17 +20,17 @@ class RequestSend:
                 res = requests.post(url, json=data, headers=headers, cookies=cookies)
             elif headers == {"Content-Type": "application/x-www-form-urlencoded"}:
                 res = requests.post(url, data=data, headers=headers, cookies=cookies)
-            code = res.status_code
-            cookies = res.cookies.get_dict()
-            dict1 = dict()
-            try:
-                body = res.json()
-            except:
-                body = res.text
-            dict1['code'] = code
-            dict1['body'] = body
-            dict1['cookies'] = cookies
-            return dict1
+        code = res.status_code
+        cookies = res.cookies.get_dict()
+        dict1 = dict()
+        try:
+            body = res.json()
+        except:
+            body = res.text
+        dict1['code'] = code
+        dict1['body'] = body
+        dict1['cookies'] = cookies
+        return dict1
 
     def send(self, url, method, **kwargs):
         return self.api_run(url=url, method=method, **kwargs)
