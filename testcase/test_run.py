@@ -4,6 +4,7 @@ import json
 
 import pytest
 import commom.base as Base
+from commom import base
 from config.settings import DynamicParam
 from utils.logutil import logger
 from utils.readmysql import RdTestcase
@@ -27,9 +28,9 @@ class TestApi:
         res_data = None
         url = case_data.loadConfkey('xbb', 'url_api')['value'] + case['url']
         method = case['method']
-        headers = eval(case['headers'])
         cookies = eval(case['cookies'])
         data = eval(case['request_body'])
+        headers = base.get_headers(data)
         relation = str(case['relation'])
         case_name = case['title']
 
@@ -84,11 +85,12 @@ class TestApi:
     def assert_response(self, case, res_data):
         is_pass = False
         try:
-            assert int(res_data['body']['error']) == int(case['expected_code'])
+            assert int(res_data['body']['code']) == int(case['expected_code'])
             logger.info("用例断言成功")
             is_pass = True
         except Exception as e:
             is_pass = False
+            print(e)
             logger.info("用例断言失败")
         finally:
             case_data.updateResults(res_data, is_pass, str(case['id']))

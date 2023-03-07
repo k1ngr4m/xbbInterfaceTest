@@ -10,7 +10,7 @@ mysql = MysqlUtil()
 class RdTestcase:
     # 加载所有测试用例
     def load_all_case(self, web):
-        sql = f"select * from 'test_case_list' where web = '{web}'"
+        sql = f"select * from test_case_list where web = '{web}'"
         results = mysql.get_fetchall(sql)
         return results
 
@@ -21,7 +21,7 @@ class RdTestcase:
 
     # 获取配置信息
     def loadConfkey(self, web, key):
-        sql = f"select * from 'test_config' where web='{web}' and 'key'='{key}'"
+        sql = f"select * from test_config where web='{web}'"
         results = mysql.get_fetchone(sql)
         return results
 
@@ -36,11 +36,13 @@ class RdTestcase:
 
 if __name__ == '__main__':
     test = RdTestcase()
-    res = test.updateResults({
-        'code': 200,
-        'body': {'error': 1,
-                 'message': '用户名和密码不能为空'},
-        'cookies': {}},
-        'True', '4565'
-    )
-    print(res)
+    url = test.loadConfkey('xbb', 'url_api')['value']
+    print(url)
+    # res = test.updateResults({
+    #     'code': 200,
+    #     'body': {'error': 1,
+    #              'message': '用户名和密码不能为空'},
+    #     'cookies': {}},
+    #     'True', '4565'
+    # )
+    # print(res)

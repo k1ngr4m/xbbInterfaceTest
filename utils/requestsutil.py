@@ -20,6 +20,9 @@ class RequestSend:
                 res = requests.post(url, json=data, headers=headers, cookies=cookies)
             elif headers == {"Content-Type": "application/x-www-form-urlencoded"}:
                 res = requests.post(url, data=data, headers=headers, cookies=cookies)
+            else:
+                print(res)
+                res = requests.post(url, json=data, headers=headers)
         code = res.status_code
         cookies = res.cookies.get_dict()
         dict1 = dict()

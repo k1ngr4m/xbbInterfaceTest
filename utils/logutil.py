@@ -14,7 +14,7 @@ class LogUtil:
         if not self.logger.handlers:
             self.log_name = '{}.log'.format(time.strftime("%Y_%m_%d", time.localtime()))
             self.log_path_file = os.path.join(get_log_path(), self.log_name)
-            fh = logging.FileHandler(self.log_path_file, encoding='utf-8', mode='w')
+            fh = logging.FileHandler(self.log_path_file, encoding='utf-8', mode='a')
             fh.setLevel(logging.DEBUG)
             formatter = logging.Formatter("%(asctime)s - %(filename)s[line:%(lineno)d] - %(levelname)s: %(message)s")
             fh.setFormatter(formatter)
@@ -36,4 +36,4 @@ class LogUtil:
 logger = LogUtil().log()
 
 if __name__ == '__main__':
-    logging.info('test')
+    logging.error('test')
