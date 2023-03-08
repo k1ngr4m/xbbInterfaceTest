@@ -30,14 +30,14 @@ class TestApi:
         method = case['method']
         cookies = eval(case['cookies'])
         data = eval(case['request_body'])
-        headers = base.get_headers(data)
         relation = str(case['relation'])
         case_name = case['title']
 
         # 根据关联获取headers参数中是否有变量需要被替换
-        headers = self.correlation(headers)
         cookies = self.correlation(cookies)
         data = self.correlation(data)
+        headers = base.get_headers(data)
+        headers = self.correlation(headers)
 
         try:
             logger.info("正在执行{}用例".format(case_name))
