@@ -37,10 +37,8 @@ class TestApi:
 
         # 根据关联获取参数中是否有变量需要被替换
         cookies = self.correlation(cookies)
-        data = self.correlation(data)
-
         data = base.get_data(data)
-
+        data = self.correlation(data)
         headers = base.get_headers(data, headers)
         headers = self.correlation(headers)
 
