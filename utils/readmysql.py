@@ -20,8 +20,8 @@ class RdTestcase:
         return run_list
 
     # 获取配置信息
-    def loadConfkey(self, web, key):
-        sql = f"select * from test_config where web='{web}'"
+    def loadConfkey(self, web, environment):
+        sql = f"select * from test_config where web='{web}' and environment='{environment}'"
         results = mysql.get_fetchone(sql)
         return results
 

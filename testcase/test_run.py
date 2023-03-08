@@ -26,17 +26,19 @@ class TestApi:
     @pytest.mark.parametrize('case', case_list)
     def test_run(self, case):
         res_data = None
-        url = case_data.loadConfkey('xbb', 'url_api')['value'] + case['url']
+        conf_key = case_data.loadConfkey('xbb', 'test1')
+        url = conf_key['value'] + case['url']
+        headers = eval(conf_key['headers'])
         method = case['method']
         cookies = eval(case['cookies'])
         data = eval(case['request_body'])
         relation = str(case['relation'])
         case_name = case['title']
 
-        # 根据关联获取headers参数中是否有变量需要被替换
+        # 根据关联获取参数中是否有变量需要被替换
         cookies = self.correlation(cookies)
         data = self.correlation(data)
-        headers = base.get_headers(data)
+        headers = base.get_headers(data, headers)
         headers = self.correlation(headers)
 
         try:

@@ -14,15 +14,15 @@ from config.settings import token
 #                'Accept-Encoding': 'gzip, deflate, br',
 #                'Accept-Language': 'zh-CN,zh;q=0.9',
 #                'Connection': 'keep-alive'}
-web_headers = {'Accept': 'application/json, text/plain, */*',
-               'Origin': 'https://ptwebf.xbongbong.com.cn',
-               'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36',
-               'sign': '',
-               'Content-Type': 'application/json;charset=UTF-8',
-               'Referer': 'https://ptwebf.xbongbong.com.cn/',
-               'Accept-Encoding': 'gzip, deflate, br',
-               'Accept-Language': 'zh-CN,zh;q=0.9',
-               'Connection': 'keep-alive'}
+# web_headers = {'Accept': 'application/json, text/plain, */*',
+#                'Origin': 'https://ptwebf.xbongbong.com.cn',
+#                'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36',
+#                'sign': '',
+#                'Content-Type': 'application/json;charset=UTF-8',
+#                'Referer': 'https://ptwebf.xbongbong.com.cn/',
+#                'Accept-Encoding': 'gzip, deflate, br',
+#                'Accept-Language': 'zh-CN,zh;q=0.9',
+#                'Connection': 'keep-alive'}
 
 
 # 生成请求头里的sign值
@@ -33,10 +33,10 @@ def create_sign_code(request_parameters, production_token):
     return sign
 
 
-def get_headers(data):
+def get_headers(data, headers):
     sign_code = create_sign_code(data, token)
-    web_headers['sign'] = sign_code
-    return web_headers
+    headers['sign'] = sign_code
+    return headers
 
 
 def find(data):
