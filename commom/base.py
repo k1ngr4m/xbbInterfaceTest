@@ -4,6 +4,8 @@ import json
 from string import Template
 import re
 from config.jenkinsparam import token
+from config.jenkinsparam import corpid
+from config.jenkinsparam import userid
 
 
 # 生成请求头里的sign值
@@ -12,6 +14,12 @@ def create_sign_code(request_parameters, production_token):
     parameters = request_parameters + str(production_token)
     sign = hashlib.sha256(parameters.encode('utf-8')).hexdigest()
     return sign
+
+
+def get_data(data):
+    data['corpid'] = corpid
+    data['userId'] = userid
+    return data
 
 
 def get_headers(data, headers):
