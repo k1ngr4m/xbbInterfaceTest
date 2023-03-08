@@ -3,8 +3,8 @@ import hashlib
 import json
 from string import Template
 import re
+from config.settings import token
 
-token = '7718c12fb17f07736dbb9e7117cdccf12512caa634997c9ec8e2608a6a591963'
 # web_headers = {'Accept': 'application/json, text/plain, */*',
 #                'Origin': 'https://pfweb.xbongbong.com',
 #                'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36',
