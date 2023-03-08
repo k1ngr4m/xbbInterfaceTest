@@ -25,6 +25,7 @@ web_headers = {'Accept': 'application/json, text/plain, */*',
                'Connection': 'keep-alive'}
 
 
+
 # 生成请求头里的sign值
 def create_sign_code(request_parameters, production_token):
     request_parameters = json.dumps(request_parameters)
