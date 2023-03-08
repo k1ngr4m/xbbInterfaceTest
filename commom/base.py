@@ -3,7 +3,7 @@ import hashlib
 import json
 from string import Template
 import re
-from config.settings import token
+from config.jenkinsparam import token
 
 
 # 生成请求头里的sign值

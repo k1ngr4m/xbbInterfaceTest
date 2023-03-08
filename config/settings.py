@@ -1,8 +1,6 @@
 # coding = utf-8
 import os
 
-token = '7718c12fb17f07736dbb9e7117cdccf12512caa634997c9ec8e2608a6a591963'
-
 # 获取文件的绝对路径
 abs_path = os.path.abspath(__file__)
 # print(abs_path)
