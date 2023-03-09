@@ -12,6 +12,7 @@ from utils.logutil import logger
 from utils.readmysql import RdTestcase
 from utils.requestsutil import RequestSend
 
+os.environ['TZ'] = 'Asia/Shanghai'
 attribute = DynamicParam()
 case_data = RdTestcase()
 case_list = case_data.is_run_data('xbb')
@@ -20,8 +21,6 @@ current_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
 class TestApi:
     def setup_class(self):
-        os.environ['TZ'] = 'Asia/Shanghai'
-        time.tzset()
         logger.info(f"***** 开始执行测试用例，开始时间为：{current_time} *****")
 
     def teardown_class(self):
