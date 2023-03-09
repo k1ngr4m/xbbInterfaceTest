@@ -1,6 +1,8 @@
 # coding=utf-8
 import datetime
 import json
+import os
+import time
 
 import pytest
 import commom.base as Base
@@ -18,6 +20,8 @@ current_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
 class TestApi:
     def setup_class(self):
+        os.environ['TZ'] = 'Asia/Shanghai'
+        time.tzset()
         logger.info(f"***** 开始执行测试用例，开始时间为：{current_time} *****")
 
     def teardown_class(self):
