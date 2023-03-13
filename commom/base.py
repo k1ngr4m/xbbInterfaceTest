@@ -17,8 +17,13 @@ def create_sign_code(request_parameters, production_token):
 
 
 def get_data(data):
-    data['corpid'] = corpid
-    data['userId'] = userid
+    for k, v in data.items():
+        if k == 'corpid':
+            data['corpid'] = corpid
+        if k == 'userId':
+            data['userId'] = userid
+        if type(v) == dict:
+            get_data(v)
     return data
 
 
