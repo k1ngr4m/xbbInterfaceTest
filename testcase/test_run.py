@@ -15,7 +15,8 @@ from utils.requestsutil import RequestSend
 os.environ['TZ'] = 'Asia/Shanghai'
 attribute = DynamicParam()
 case_data = RdTestcase()
-case_list = case_data.is_run_data('xbb')
+case_list_positive = case_data.is_run_data('xbb', 1)
+case_list_negative = case_data.is_run_data('xbb', 0)
 current_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
 
@@ -26,8 +27,15 @@ class TestApi:
     def teardown_class(self):
         logger.info(f"***** 执行测试用例完成，完成时间为：{current_time} *****")
 
-    @pytest.mark.parametrize('case', case_list)
-    def test_run(self, case):
+    @pytest.mark.parametrize('case', case_list_positive)
+    def test_run_positive(self, case):
+        self.run(case)
+
+    @pytest.mark.parametrize('case', case_list_negative)
+    def test_run_negative(self, case):
+        self.run(case)
+
+    def run(self, case):
         res_data = None
         conf_key = case_data.loadConfkey('xbb', 'test1')
         url = conf_key['value'] + case['url']

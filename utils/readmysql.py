@@ -15,8 +15,8 @@ class RdTestcase:
         return results
 
     # 筛选可执行的用例
-    def is_run_data(self, web):
-        run_list = [case for case in self.load_all_case(web) if case['isdel'] == 1]
+    def is_run_data(self, web, ispositive):
+        run_list = [case for case in self.load_all_case(web) if case['isdel'] == 1 and case['ispositive'] == ispositive]
         return run_list
 
     # 获取配置信息
@@ -38,11 +38,3 @@ if __name__ == '__main__':
     test = RdTestcase()
     url = test.loadConfkey('xbb', 'url_api')['value']
     print(url)
-    # res = test.updateResults({
-    #     'code': 200,
-    #     'body': {'error': 1,
-    #              'message': '用户名和密码不能为空'},
-    #     'cookies': {}},
-    #     'True', '4565'
-    # )
-    # print(res)
