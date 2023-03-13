@@ -56,7 +56,7 @@ class TestApi:
         try:
             logger.info("正在执行{}用例".format(case_name))
             res_data = RequestSend().send(url, method, data=data, headers=headers, cookies=cookies)
-            logger.info("用例执行成功，请求的结果为{}".format(res_data))
+            logger.info("用例执行成功，请求的结果为\n\t{}".format(res_data))
         except:
             logger.info("用例执行失败，请查看日志。")
             assert False

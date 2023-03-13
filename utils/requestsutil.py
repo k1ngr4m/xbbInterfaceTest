@@ -8,11 +8,11 @@ class RequestSend:
     # 封装requests请求函数
     def api_run(self, url, method, data=None, headers=None, cookies=None):
         res = None
-        logger.info("请求的url为{},类型为{}".format(url, type(url)))
-        logger.info("请求的method为{},类型为{}".format(method, type(method)))
-        logger.info("请求的data为{},类型为{}".format(data, type(data)))
-        logger.info("请求的headers为{},类型为{}".format(headers, type(headers)))
-        logger.info("请求的cookies为{},类型为{}".format(cookies, type(cookies)))
+        logger.info("请求的url为\n\t{},类型为{}".format(url, type(url)))
+        logger.info("请求的method为\n\t{},类型为{}".format(method, type(method)))
+        logger.info("请求的data为\n\t{},类型为{}".format(data, type(data)))
+        logger.info("请求的headers为\n\t{},类型为{}".format(headers, type(headers)))
+        logger.info("请求的cookies为\n\t{},类型为{}".format(cookies, type(cookies)))
         if method == "get":
             res = requests.get(url, data=data, headers=headers, cookies=cookies)
         elif method == "post":
