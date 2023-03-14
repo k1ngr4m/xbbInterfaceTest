@@ -1,8 +1,6 @@
 # coding=utf-8
 import datetime
 import json
-import os
-import time
 
 import pytest
 import commom.base as Base
@@ -12,8 +10,6 @@ from utils.logutil import logger
 from utils.readmysql import RdTestcase
 from utils.requestsutil import RequestSend
 
-os.environ['TZ'] = 'Asia/Shanghai'
-attribute = DynamicParam()
 case_data = RdTestcase()
 case_list_positive = case_data.is_run_data('xbb', 1)
 case_list_negative = case_data.is_run_data('xbb', 0)

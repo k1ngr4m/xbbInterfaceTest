@@ -1,5 +1,9 @@
 import os
 
+name = os.name
+
+
+# 按间距中的绿色按钮以运行脚本。
 def deal_dict(data):
     for k, v in data.items():
         if k == 'corpid':
@@ -16,9 +20,7 @@ def deal_dict(data):
             deal_dict(v)
         return data
 
-import pymysql
-name = os.name
-# 按间距中的绿色按钮以运行脚本。
+
 if __name__ == '__main__':
     strs = '{"corpid":"123","data":{"corpid":"123","appId":"123"}}'
     data = eval(strs)
