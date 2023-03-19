@@ -9,6 +9,7 @@ from config.settings import DynamicParam
 from utils.logutil import logger
 from utils.readmysql import RdTestcase
 from utils.requestsutil import RequestSend
+from config.jenkinsparam import environment
 
 case_data = RdTestcase()
 case_list_positive = case_data.is_run_data('xbb', 1)
@@ -33,7 +34,7 @@ class TestApi:
 
     def run(self, case):
         res_data = None
-        conf_key = case_data.loadConfkey('xbb', 'test1')
+        conf_key = case_data.loadConfkey('xbb', environment)
         url = conf_key['value'] + case['url']
         headers = eval(conf_key['headers'])
         method = case['method']
