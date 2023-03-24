@@ -1,4 +1,5 @@
 token = '7cc6b3191a05b88d2cdbd6726d9afa05c232616a234305ba688d504c46e27b27'
 corpid = 'ding66041eb1c6df73f535c2f4657eb6378f'
 userid = '215252650523902241'
-environment = 'test1'
+environment = 'test4'
+login_para = '{"userId":"1669901944505","corpid":"xbb331f47d96ce94873801f0f3b6e302ca8","xbbAccessToken":"dc36c5029ea43c4b3b3d6bc8765bdf5452e933475091d0efd18cb868e1593197"}'

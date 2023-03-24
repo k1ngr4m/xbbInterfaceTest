@@ -6,6 +6,7 @@ import re
 from config.jenkinsparam import token
 from config.jenkinsparam import corpid
 from config.jenkinsparam import userid
+from config.jenkinsparam import login_para
 
 
 # 生成请求头里的sign值
@@ -16,19 +17,47 @@ def create_sign_code(request_parameters, production_token):
     return sign
 
 
+def deal_login_para():
+    if "userId" in login_para:
+        try:
+            login_para_dict = {}
+            login_para_dict = eval(login_para)
+            login_corpid = login_para_dict['corpid']
+            login_userId = login_para_dict['userId']
+            login_token = login_para_dict['xbbAccessToken']
+
+        except Exception as e:
+            print(e)
+
+
 def get_data(data):
     for k, v in data.items():
         if k == 'corpid':
-            data['corpid'] = corpid
+            if "corpid" in login_para:
+                login_para_dict = eval(login_para)
+                login_corpid = login_para_dict['corpid']
+                data['corpid'] = login_corpid
+            else:
+                data['corpid'] = corpid
         if k == 'userId':
-            data['userId'] = userid
+            if "userId" in login_para:
+                login_para_dict = eval(login_para)
+                login_userId = login_para_dict['userId']
+                data['userId'] = login_userId
+            else:
+                data['userId'] = userid
         if type(v) == dict:
             get_data(v)
     return data
 
 
 def get_headers(data, headers):
-    sign_code = create_sign_code(data, token)
+    if "xbbAccessToken" in login_para:
+        login_para_dict = eval(login_para)
+        login_token = login_para_dict['xbbAccessToken']
+    else:
+        login_token = token
+    sign_code = create_sign_code(data, login_token)
     headers['sign'] = sign_code
     return headers
 
