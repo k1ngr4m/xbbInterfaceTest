@@ -83,7 +83,11 @@ def parse_relation(var, resdata):
     if not var:
         return resdata
     else:
-        resdata = resdata.get(var[0])
+        if type(resdata) == list:
+            for i in range(len(resdata)):
+                resdata = resdata[i].get(var[0])
+        else:
+            resdata = resdata.get(var[0])
         del var[0]
         return parse_relation(var, resdata)
 
