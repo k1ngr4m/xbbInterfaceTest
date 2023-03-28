@@ -38,13 +38,13 @@ class TestApi:
         url = conf_key['value'] + case['url']
         headers = eval(conf_key['headers'])
         method = case['method']
-        cookies = eval(case['cookies'])
+        # cookies = eval(case['cookies'])
         data = eval(case['request_body'])
         relation = str(case['relation'])
         case_name = case['title']
 
         # 根据关联获取参数中是否有变量需要被替换
-        cookies = self.correlation(cookies)
+        # cookies = self.correlation(cookies)
         data = base.get_data(data)
         data = self.correlation(data)
         headers = base.get_headers(data, headers)
@@ -52,7 +52,7 @@ class TestApi:
 
         try:
             logger.info("正在执行{}用例".format(case_name))
-            res_data = RequestSend().send(url, method, data=data, headers=headers, cookies=cookies)
+            res_data = RequestSend().send(url, method, data=data, headers=headers)
             logger.info("用例执行成功，请求的结果为\n\t{}".format(res_data))
         except:
             logger.info("用例执行失败，请查看日志。")

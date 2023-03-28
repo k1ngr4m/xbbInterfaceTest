@@ -9,10 +9,10 @@ class RequestSend:
     def api_run(self, url, method, data=None, headers=None, cookies=None):
         res = None
         logger.info("请求的url为\n\t{},类型为{}".format(url, type(url)))
-        logger.info("请求的method为\n\t{},类型为{}".format(method, type(method)))
+        # logger.info("请求的method为\n\t{},类型为{}".format(method, type(method)))
         logger.info("请求的data为\n\t{},类型为{}".format(data, type(data)))
         logger.info("请求的headers为\n\t{},类型为{}".format(headers, type(headers)))
-        logger.info("请求的cookies为\n\t{},类型为{}".format(cookies, type(cookies)))
+        # logger.info("请求的cookies为\n\t{},类型为{}".format(cookies, type(cookies)))
         if method == "get":
             res = requests.get(url, data=data, headers=headers, cookies=cookies)
         elif method == "post":
@@ -24,7 +24,7 @@ class RequestSend:
                 print(res)
                 res = requests.post(url, json=data, headers=headers)
         code = res.status_code
-        cookies = res.cookies.get_dict()
+        # cookies = res.cookies.get_dict()
         dict1 = dict()
         try:
             body = res.json()
@@ -32,7 +32,7 @@ class RequestSend:
             body = res.text
         dict1['code'] = code
         dict1['body'] = body
-        dict1['cookies'] = cookies
+        # dict1['cookies'] = cookies
         return dict1
 
     def send(self, url, method, **kwargs):
