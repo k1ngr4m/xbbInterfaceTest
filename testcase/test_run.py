@@ -10,8 +10,11 @@ from config.settings import DynamicParam
 from utils.logutil import logger
 from utils.readmysql import RdTestcase
 from utils.requestsutil import RequestSend
+from utils.yapiutil import Yapi
 from config.jenkinsparam import environment
+from config.jenkinsparam import isupdate_database
 
+yapi = Yapi()
 case_data = RdTestcase()
 case_list_positive = case_data.is_run_data('xbb', 1)
 case_list_negative = case_data.is_run_data('xbb', 0)
@@ -20,6 +23,10 @@ current_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
 class TestApi:
     def setup_class(self):
+        if isupdate_database == "true":
+            logger.info(f"***** 开始执行更新数据库测试用例，开始时间为：{current_time} *****")
+            yapi.updateDatabase()
+            logger.info(f"***** 执行更新数据库测试用例完成，完成时间为：{current_time} *****")
         logger.info(f"***** 开始执行测试用例，开始时间为：{current_time} *****")
 
     def teardown_class(self):
