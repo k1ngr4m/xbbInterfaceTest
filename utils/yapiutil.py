@@ -69,6 +69,7 @@ class Yapi:
                 for i in range(len(data_list)):
                     interface_id = data_list[i]['_id']
                     data_dict = self.get_interface_detail(interface_id)
+                    data_dict['id'] = i + 1
                     interface_data_list.append(data_dict)
             else:
                 print(response['errcode'])
@@ -96,6 +97,7 @@ class Yapi:
                 req_body_other = eval(data['req_body_other'])
                 relation = data['markdown']
                 interface_data_dict = {
+                    'id': 0,
                     'title': title,
                     'method': method,
                     'path': path,
