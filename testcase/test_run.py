@@ -10,9 +10,7 @@ from config.settings import DynamicParam
 from utils.logutil import logger
 from utils.readmysql import RdTestcase
 from utils.requestsutil import RequestSend
-from utils.yapiutil import Yapi
 from config.jenkinsparam import environment
-from config.jenkinsparam import isupdate_database
 
 case_data = RdTestcase()
 case_list_positive = case_data.is_run_data('xbb', 1)
