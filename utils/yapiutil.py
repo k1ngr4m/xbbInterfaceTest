@@ -1,15 +1,18 @@
 import json
 import os.path
-import ast
 import requests as requests
-# import demjson3 as demjson
 import re
+from utils.readmysql import RdTestcase
 
 
 class Yapi:
     def __init__(self):
         self.url = 'http://yapi.xbongbong.com'
         self.token = '841a5e8fb8251976ba069eef55158a12213f715d9465eeb26ac0f1052bcce1a6'  # 项目token（记得改）
+        self.interface_detail_filename = r'utils/data/interface_detail.json'
+        self.sql = RdTestcase()
+        self.sql.truncateTable(self.sql.case_table_name)
+        self.id = 0
 
     # 替换数据
     def replace_data(self, init_data, expected_to_be_replace, need_replace_to_data):
@@ -26,7 +29,7 @@ class Yapi:
             'Content-Type': 'application/x-www-form-urlencoded'
         }
         body = {
-            'project_id': 635,  # 项目id
+            'project_id': 735,  # 项目id
             'token': self.token
         }
         try:
@@ -43,6 +46,8 @@ class Yapi:
                     uid = data[i]['uid']
                     # 打印项目信息
                     print(f'cat_id:{cat_id}\tuid:{uid}\t\tname:{name}')
+                    self.get_interface_list_cat(cat_id)
+                    self.update_database()
             # 返回数据错误
             else:
                 print(errcode)
@@ -69,7 +74,8 @@ class Yapi:
                 for i in range(len(data_list)):
                     interface_id = data_list[i]['_id']
                     data_dict = self.get_interface_detail(interface_id)
-                    data_dict['id'] = i + 1
+                    self.id = self.id + 1
+                    data_dict['id'] = self.id
                     interface_data_list.append(data_dict)
             else:
                 print(response['errcode'])
@@ -91,18 +97,26 @@ class Yapi:
             response = requests.get(url=url, params=body, headers=headers).json()
             if response['errcode'] == 0:
                 data = response['data']
-                method = data['method']
+                method = str(data['method']).lower()
                 title = data['title']
                 path = data['path']
                 req_body_other = eval(data['req_body_other'])
                 relation = data['markdown']
+                status = data['status']
+
+                if status == 'done':
+                    status = int(1)
+                else:
+                    status = int(0)
+
                 interface_data_dict = {
                     'id': 0,
                     'title': title,
                     'method': method,
                     'path': path,
                     'req_body': req_body_other,
-                    'relation': relation
+                    'relation': relation,
+                    'isdel': status
                 }
                 return interface_data_dict
             else:
@@ -111,15 +125,34 @@ class Yapi:
             print(e)
 
     def save_data_list(self, data_list):
-        interface_detail_filename = r'data/interface_detail.json'
-        if not os.path.exists(interface_detail_filename):
-            with open(interface_detail_filename, 'a', encoding='utf-8') as file:
+        if not os.path.exists(self.interface_detail_filename):
+            with open(self.interface_detail_filename, 'a', encoding='utf-8') as file:
                 file.close()
-        with open(interface_detail_filename, 'w', encoding='utf-8') as file:
+        with open(self.interface_detail_filename, 'w', encoding='utf-8') as file:
             result = json.dumps(data_list, ensure_ascii=False)
             file.write(result)
+
+    def update_database(self):
+        with open(self.interface_detail_filename, 'r', encoding='utf-8') as file:
+            case_str = file.read()
+            case_str = case_str.replace("false", "False")
+            case_list = eval(case_str)
+            for i in range(len(case_list)):
+                case_dict = case_list[i]
+                id = case_dict['id']
+                title = case_dict['title']
+                method = case_dict['method']
+                url = case_dict['path']
+                request_body = str(case_dict['req_body']).replace("'", '"').replace('"None"', 'None').replace('"False"','False').replace('"True"', 'True')
+                relation = case_dict['relation']
+                isdel = case_dict['isdel']
+                self.sql.update_case_from_yapi(id, title, url, method, request_body, relation, isdel)
+            file.close()
+
+    def updateDatabase(self):
+        self.get_cat_menu()
 
 
 if __name__ == '__main__':
     yapi = Yapi()
-    yapi.get_interface_list_cat(1799)
+    yapi.updateDatabase()
