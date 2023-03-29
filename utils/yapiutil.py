@@ -34,12 +34,10 @@ class Yapi:
         }
         try:
             response = requests.get(url=url, params=body, headers=headers).json()
-            # print(response)
             errcode = response['errcode']
             # 成功获取data
             if errcode == 0:
                 data = response['data']
-                # print(data)
                 for i in range(len(data)):
                     cat_id = data[i]['_id']
                     name = data[i]['name']
@@ -81,7 +79,6 @@ class Yapi:
                 print(response['errcode'])
         except Exception as e:
             print(e)
-        print(interface_data_list)
         self.save_data_list(interface_data_list)
 
     def get_interface_detail(self, interface_id):
