@@ -13,24 +13,19 @@ from utils.requestsutil import RequestSend
 from config.jenkinsparam import environment
 
 case_data = RdTestcase()
-case_list_positive = case_data.is_run_data('xbb', 1)
-case_list_negative = case_data.is_run_data('xbb', 0)
+case_list_positive = case_data.is_run_data('xbb', case_data.case_table_pos)
 current_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
 
 class TestApi:
     def setup_class(self):
-        logger.info(f"***** 开始执行测试用例，开始时间为：{current_time} *****")
+        logger.info(f"***** 开始执行正向测试用例，开始时间为：{current_time} *****")
 
     def teardown_class(self):
-        logger.info(f"***** 执行测试用例完成，完成时间为：{current_time} *****")
+        logger.info(f"***** 执行测试正向用例完成，完成时间为：{current_time} *****")
 
     @pytest.mark.parametrize('case', case_list_positive)
     def test_run_positive(self, case):
-        self.run(case)
-
-    @pytest.mark.parametrize('case', case_list_negative)
-    def test_run_negative(self, case):
         self.run(case)
 
     def run(self, case):
@@ -39,13 +34,11 @@ class TestApi:
         url = conf_key['value'] + case['url']
         headers = eval(conf_key['headers'])
         method = case['method']
-        # cookies = eval(case['cookies'])
         data = eval(case['request_body'])
         relation = str(case['relation'])
         case_name = case['title']
 
         # 根据关联获取参数中是否有变量需要被替换
-        # cookies = self.correlation(cookies)
         data = base.get_data(data)
         data = self.correlation(data)
         headers = base.get_headers(data, headers)
@@ -111,4 +104,4 @@ class TestApi:
 
 
 if __name__ == '__main__':
-    pytest.main(['-s', '-v', 'test_run.py'])
+    pytest.main(['-s', '-v', 'test_run_1pos.py'])

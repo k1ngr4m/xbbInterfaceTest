@@ -9,17 +9,18 @@ mysql = MysqlUtil()
 
 class RdTestcase:
     def __init__(self):
-        self.case_table_name = 'test_case_list_yapi'
+        self.case_table_pos = 'test_case_list_pos'
+        self.case_table_neg = 'test_case_list_neg'
 
-    # 加载所有测试用例
-    def load_all_case(self, web):
-        sql = f"select * from test_case_list_yapi where web = '{web}'"
+    # 加载正向测试用例
+    def load_test_case(self, web, table_name):
+        sql = f"select * from {table_name} where web = '{web}'"
         results = mysql.get_fetchall(sql)
         return results
 
     # 筛选可执行的用例
-    def is_run_data(self, web, ispositive):
-        run_list = [case for case in self.load_all_case(web) if case['isdel'] == 1 and case['ispositive'] == ispositive]
+    def is_run_data(self, web, table_name):
+        run_list = [case for case in self.load_test_case(web, table_name) if case['isdel'] == 1]
         return run_list
 
     # 获取配置信息
@@ -42,8 +43,8 @@ class RdTestcase:
         logger.debug(sql)
         return rows
 
-    def update_case_from_yapi(self, id, title, url, method, request_body, relation, isdel):
-        sql = f"insert into {self.case_table_name} (id,web,module,title,url,method,request_body,request_type,relation,expected_code,isdel,ispositive) value ('{id}','xbb','Paas','{title}','{url}','{method}','{request_body}','json','{relation}','1',{isdel},1)"
+    def update_case_from_yapi(self, case_table_name, id, title, url, method, request_body, relation, expected_code, isdel):
+        sql = f"insert into {case_table_name} (id,web,module,title,url,method,request_body,request_type,relation,expected_code,isdel) value ('{id}','xbb','Paas','{title}','{url}','{method}','{request_body}','json','{relation}',{expected_code},{isdel})"
         rows = mysql.sql_execute(sql)
         logger.debug(sql)
         return rows

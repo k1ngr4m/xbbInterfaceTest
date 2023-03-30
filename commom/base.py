@@ -92,6 +92,10 @@ def parse_relation(var, resdata):
         return parse_relation(var, resdata)
 
 
+def trans_str_bool(string):
+    return str(string).replace("'", '"').replace('None', 'null').replace('False', 'false').replace('True', 'true')
+
+
 if __name__ == '__main__':
     ori_data = {"admin-token": "${token}"}
     replace_data = {'token': 'k1ngr4m'}
