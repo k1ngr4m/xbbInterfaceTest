@@ -139,7 +139,7 @@ class Yapi:
             relation = case_dict['relation']
             expected_code = case_dict['expected_code']
             isdel = case_dict['isdel']
-            sql.update_case_from_yapi(sql.case_table_pos, id, title, url, method, request_body, relation, expected_code,
+            sql.update_case_from_yapi(table_name, id, title, url, method, request_body, relation, expected_code,
                                       isdel)
         logger.info(f'写入数据库{table_name}成功')
 
