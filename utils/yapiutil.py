@@ -37,6 +37,7 @@ class Yapi:
                 for i in range(len(data)):
                     cat_id = data[i]['_id']
                     name = data[i]['name']
+                    print(data[i])
                     # 打印项目信息
                     print(f'cat_id:{cat_id}\t\tname:{name}')
                     cat_id_list.append(cat_id)
@@ -154,4 +155,5 @@ class Yapi:
 
 if __name__ == '__main__':
     yapi = Yapi()
-    yapi.update_positive_database()
+    # yapi.update_positive_database()
+    yapi.get_cat_menu()
