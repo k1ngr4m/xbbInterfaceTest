@@ -7,10 +7,10 @@ from utils.requestsutil import RequestSend
 case_data = RdTestcase()
 
 title = ''
-environment = 'test1'
-path = '/pro/v1/app/delete?lang=zh_CN'
-request_body = '{"corpid": "", "userId": "", "platform": "web", "id": "1029"}'
-
+environment = 'testsae'
+path = '/pro/v1/workOrderV2/workTimeRecord/staffList?lang=zh_CN'
+request_body = \
+'{"corpid": "ding66041eb1c6df73f535c2f4657eb6378f", "userId": "215252650523902241", "platform": "web", "appId": 897, "businessType": 21100, "formId": 10487, "saasMark": 1, "subBusinessType": 21100, "startTime": 1682380800, "endTime": 1682467200, "sortMap": {}, "timeFilter": {}, "listGroupId": 0, "defaultGroup": 1, "commonFilter": {}, "page": 1, "pageSize": 20, "del": 0, "conditions": [], "statusFilter": 0, "isRelatedCustomers": "false", "": 1}'
 res_data = None
 conf_key = case_data.loadConfkey('xbb', environment)
 url = conf_key['value'] + path

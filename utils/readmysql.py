@@ -44,7 +44,7 @@ class RdTestcase:
         return rows
 
     def update_case_from_yapi(self, case_table_name, id, title, url, method, request_body, relation, expected_code, isdel):
-        sql = f"insert into {case_table_name} (id,web,module,title,url,method,request_body,request_type,relation,expected_code,isdel) value ('{id}','xbb','Paas','{title}','{url}','{method}','{request_body}','json','{relation}',{expected_code},{isdel})"
+        sql = f"insert into {case_table_name} (id,web,title,url,method,request_body,request_type,relation,expected_code,isdel) value ('{id}','xbb','{title}','{url}','{method}','{request_body}','json','{relation}',{expected_code},{isdel})"
         rows = mysql.sql_execute(sql)
         logger.debug(sql)
         return rows
