@@ -18,9 +18,9 @@ _report_path = project_path + os.sep + "report"
 
 # 数据库配置信息
 DB_CONFIG = {
-    "host": "123.60.188.15",
+    "host": "localhost",
     "user": "root",
-    "password": "123456",
+    "password": "root",
     "database": "InterfaceTest",
     "port": 3306,
     "charset": "utf8"

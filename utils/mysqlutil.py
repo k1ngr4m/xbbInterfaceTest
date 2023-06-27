@@ -40,5 +40,6 @@ class MysqlUtil:
 
 if __name__ == '__main__':
     mysql = MysqlUtil()
-    res = mysql.get_fetchall("select * from test_case_list")
+    res = mysql.get_fetchall("select * from test_case_list_pos")
     print(res)
+
